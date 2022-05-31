@@ -67,10 +67,20 @@
               class="help-block"
               *ngIf="
                 signUpFrom.get(getHobbitControlIndex(index))?.invalid &&
-                signUpFrom.get(getHobbitControlIndex(index))?.touched
+                signUpFrom.get(getHobbitControlIndex(index))?.dirty
               "
             >
-              Enter a valid hobbit
+              Enter a valid hobbits, is required<br />
+              <div
+                *ngIf="
+                  signUpFrom.get(getHobbitControlIndex(index))?.errors?.['isHobbitForbiddedName']
+                "
+              >
+                <span>cannot use:</span><br />
+                <span *ngFor="let name of invalidHobbitNames"
+                  >{{ name }}<br
+                /></span>
+              </div>
             </span>
           </div>
         </div>
