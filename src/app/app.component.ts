@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormArray,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -8,6 +15,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class AppComponent implements OnInit {
   genders = ['male', 'female'];
   signUpFrom!: FormGroup;
+  get hobbitsControls(): AbstractControl[] {
+    return (this.signUpFrom.get('hobbits') as FormArray).controls;
+  }
 
   ngOnInit(): void {
     this.signUpFrom = new FormGroup({
@@ -16,10 +26,21 @@ export class AppComponent implements OnInit {
         email: new FormControl(null, [Validators.required, Validators.email]),
       }),
       gender: new FormControl('male'),
+      hobbits: new FormArray([]),
     });
   }
 
   onSubmit() {
     console.log(this.signUpFrom);
+  }
+
+  addHobbit() {
+    (this.signUpFrom.get('hobbits') as FormArray).push(
+      new FormControl(null, Validators.required)
+    );
+  }
+
+  getHobbitControlIndex(index: number): string {
+    return `hobbits.${index}`;
   }
 }

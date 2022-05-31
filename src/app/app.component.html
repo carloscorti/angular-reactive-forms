@@ -53,6 +53,27 @@
         >
           Enter a valid data
         </span>
+        <div class="form-group" formGroupName="hobbits">
+          <h4>Add your hobbits</h4>
+          <button class="btn btn-primary" type="button" (click)="addHobbit()">
+            Add hobbit
+          </button>
+          <div
+            class="form-gruop"
+            *ngFor="let control of hobbitsControls; index as index"
+          >
+            <input class="form-control" type="text" [formControlName]="index" />
+            <span
+              class="help-block"
+              *ngIf="
+                signUpFrom.get(getHobbitControlIndex(index))?.invalid &&
+                signUpFrom.get(getHobbitControlIndex(index))?.touched
+              "
+            >
+              Enter a valid hobbit
+            </span>
+          </div>
+        </div>
         <button
           class="btn btn-primary"
           type="submit"
