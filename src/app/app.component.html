@@ -67,7 +67,8 @@
               class="help-block"
               *ngIf="
                 signUpFrom.get(getHobbitControlIndex(index))?.invalid &&
-                signUpFrom.get(getHobbitControlIndex(index))?.dirty
+                (signUpFrom.get(getHobbitControlIndex(index))?.touched ||
+                  signUpFrom.get(getHobbitControlIndex(index))?.dirty)
               "
             >
               Enter a valid hobbits, is required<br />
